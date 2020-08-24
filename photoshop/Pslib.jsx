@@ -1,5 +1,7 @@
 
+// =====================================================================================
 // 7arg : string, float(int), float(int), float(int), float(int), int, string
+// =====================================================================================
 function Create_NewDoc (name, width, height, resolution, pixelScaleFactor, bit, profile){
     // init
     if ( name === undefined ) name = """new document""";
@@ -51,4 +53,20 @@ function Create_NewDoc (name, width, height, resolution, pixelScaleFactor, bit, 
     var idDocI = charIDToTypeID( "DocI" );
     DESCall.putInteger( idDocI, 244 );
     executeAction( idMk, DESCall, DialogModes.NO );
+}
+
+// =====================================================================================
+// deselect any layers
+// =====================================================================================
+function Select_NoLayer(){
+    var idselectNoLayers = stringIDToTypeID( "selectNoLayers" );
+    var DESC = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+    var ref = new ActionReference();
+    var idLyr = charIDToTypeID( "Lyr " );
+    var idOrdn = charIDToTypeID( "Ordn" );
+    var idTrgt = charIDToTypeID( "Trgt" );
+    ref.putEnumerated( idLyr, idOrdn, idTrgt );
+    DESC.putReference( idnull, ref );
+    executeAction( idselectNoLayers, DESC, DialogModes.NO );
 }
