@@ -1,5 +1,5 @@
-
 // =====================================================================================
+// create new document
 // 7arg : string, float(int), float(int), float(int), float(int), int, string
 // =====================================================================================
 function Create_NewDoc (name, width, height, resolution, pixelScaleFactor, bit, profile){
@@ -69,4 +69,25 @@ function Select_NoLayer(){
     ref.putEnumerated( idLyr, idOrdn, idTrgt );
     DESC.putReference( idnull, ref );
     executeAction( idselectNoLayers, DESC, DialogModes.NO );
+}
+
+// =====================================================================================
+// Open the file by referencing the path passed as an argument
+// =====================================================================================
+function Open_Directory(directory){
+    var idOpn = charIDToTypeID( "Opn " );
+    var DESC = new ActionDescriptor();
+    var iddontRecord = stringIDToTypeID( "dontRecord" );
+    DESC.putBoolean( iddontRecord, false );
+    var idforceNotify = stringIDToTypeID( "forceNotify" );
+    DESC.putBoolean( idforceNotify, true );
+    var idnull = charIDToTypeID( "null" );
+    DESC.putPath( idnull, new File( directory ) );
+    var idDocI = charIDToTypeID( "DocI" );
+    DESC.putInteger( idDocI, 208 );
+    executeAction( idOpn, DESC, DialogModes.NO );
+}
+
+
+function Create_RectFromSelectionBox(){
 }
