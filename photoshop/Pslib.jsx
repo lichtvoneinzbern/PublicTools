@@ -56,6 +56,21 @@ function Create_NewDoc (name, width, height, resolution, pixelScaleFactor, bit, 
 }
 
 // =====================================================================================
+// select layer by layerID
+// =====================================================================================
+function Set_SelectLayers(id){
+	//set
+	var ref = new ActionReference();
+    ref.putIdentifier(stringIDToTypeID("layer"), id);
+
+	//execute
+    var desc = new ActionDescriptor();
+    desc.putReference(stringIDToTypeID("null"), ref);
+    desc.putBoolean(stringIDToTypeID("makeVisible"), false);
+    executeAction(stringIDToTypeID("select"), desc, DialogModes.NO);
+}
+
+// =====================================================================================
 // deselect any layers
 // =====================================================================================
 function Select_NoLayer(){
@@ -88,6 +103,18 @@ function Open_Directory(directory){
     executeAction( idOpn, DESC, DialogModes.NO );
 }
 
-
-function Create_RectFromSelectionBox(){
+// =====================================================================================
+// Change active document as an argument
+// =====================================================================================
+function Shift_ActiveDocument(shiftNum){
+    var idslct = charIDToTypeID( "slct" );
+    var DESC = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+    var ref = new ActionReference();
+    var idDcmn = charIDToTypeID( "Dcmn" );
+    ref.putOffset( idDcmn, shiftNum );
+    DESC.putReference( idnull, ref );
+    var idDocI = charIDToTypeID( "DocI" );
+    DESC.putInteger( idDocI, 744 );
+    executeAction( idslct, DESC, DialogModes.NO );
 }
