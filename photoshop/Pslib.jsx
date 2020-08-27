@@ -56,6 +56,31 @@ function Create_NewDoc (name, width, height, resolution, pixelScaleFactor, bit, 
 }
 
 // =====================================================================================
+// Save active document as your specified name
+// =====================================================================================
+function SaveActiveDocumentAsNewName(dir, fName){
+    var idsave = charIDToTypeID( "save" );
+    var DESC = new ActionDescriptor();
+    var idAs = charIDToTypeID( "As  " );
+    var desc85 = new ActionDescriptor();
+    var idPhtthree = charIDToTypeID( "Pht3" );
+    DESC.putObject( idAs, idPhtthree, desc85 );
+
+    var idIn = charIDToTypeID( "In  " );
+    DESC.putPath( idIn, new File( dir + "/" + fName + ".psd" ) );
+
+    var idDocI = charIDToTypeID( "DocI" );
+    DESC.putInteger( idDocI, 367 );
+
+    var idsaveStage = stringIDToTypeID( "saveStage" );
+    var idsaveStageType = stringIDToTypeID( "saveStageType" );
+    var idsaveBegin = stringIDToTypeID( "saveBegin" );
+    DESC.putEnumerated( idsaveStage, idsaveStageType, idsaveBegin );
+
+    executeAction( idsave, DESC, DialogModes.NO );
+}
+
+// =====================================================================================
 // select layer by layerID
 // =====================================================================================
 function Set_SelectLayers(id){
@@ -118,3 +143,4 @@ function Shift_ActiveDocument(shiftNum){
     DESC.putInteger( idDocI, 744 );
     executeAction( idslct, DESC, DialogModes.NO );
 }
+
